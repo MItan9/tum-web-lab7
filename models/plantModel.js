@@ -19,9 +19,14 @@ const createPlant = (plant, callback) => {
   );
 };
 
+const deletePlant = (id, callback) => {
+  db.run('DELETE FROM plants WHERE id = ?', [id], function (err) {
+    callback(err, this.changes);
+  });
+};
+
 module.exports = {
   getAllPlants,
   createPlant,
-
-  
+  deletePlant
 };
