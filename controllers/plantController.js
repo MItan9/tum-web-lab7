@@ -39,3 +39,14 @@ exports.water = (req, res) => {
     res.json({ message: "Plant watered", lastWatDay: date });
   });
 };
+
+exports.favourite = (req, res) => {
+    const id = req.params.id;
+    const fav = req.body.favourite ? 1 : 0;
+
+    PlantModel.favourite(id, fav, (err, changes) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (!changes) return res.status(404).json({ error: 'Plant not found' });
+    res.json({ message: 'Plant favourite status updated', favourite: fav });
+    })
+}
