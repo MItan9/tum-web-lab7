@@ -25,8 +25,19 @@ const deletePlant = (id, callback) => {
   });
 };
 
+const waterPlant = (id, date, callback) => {
+  db.run(
+    'UPDATE plants SET lastWatDay = ? WHERE id = ?',
+    [date, id],
+    function (err) {
+      callback(err, this.changes);
+    }
+  );
+};
+
 module.exports = {
   getAllPlants,
   createPlant,
-  deletePlant
+  deletePlant,
+  waterPlant
 };

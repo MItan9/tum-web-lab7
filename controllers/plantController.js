@@ -28,3 +28,14 @@ exports.remove = (req, res) => {
     res.json({ message: 'Plant deleted' });
   });
 };
+
+exports.water = (req, res) => {
+  const id = req.params.id;
+  const date = new Date().toISOString().split("T")[0]; // только дата
+
+  PlantModel.waterPlant(id, date, (err, changes) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (!changes) return res.status(404).json({ error: "Plant not found" });
+    res.json({ message: "Plant watered", lastWatDay: date });
+  });
+};
