@@ -1,4 +1,3 @@
-// controllers/plantController.js
 const PlantModel = require('../models/plantModel');
 
 exports.getAll = (req, res) => {
@@ -8,5 +7,13 @@ exports.getAll = (req, res) => {
   PlantModel.getAllPlants(limit, offset, (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(rows);
+  });
+};
+
+exports.create = (req, res) => {
+  const newPlant = req.body;
+  PlantModel.createPlant(newPlant, (err, id) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.status(201).json({ id, ...newPlant });
   });
 };
