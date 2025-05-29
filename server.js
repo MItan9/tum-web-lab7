@@ -11,6 +11,8 @@ const PORT = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json());
 app.use('/plants', plantRoutes);
+app.use('/', require('./routes/authRoutes'));
+
 
 
 require('./database'); 
